@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'net.totodev'
+version '1.0'
+
+project.ext.lwjglVersion = '3.3.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ext.allPlatformNative = { baseDependency ->
+        runtimeOnly "$baseDependency:natives-windows"
+        runtimeOnly "$baseDependency:natives-windows-x86"
+        runtimeOnly "$baseDependency:natives-windows-arm64"
+
+        runtimeOnly "$baseDependency:natives-linux"
+        runtimeOnly "$baseDependency:natives-linux-arm64"
+        runtimeOnly "$baseDependency:natives-linux-arm32"
+
+        runtimeOnly "$baseDependency:natives-macos"
+        runtimeOnly "$baseDependency:natives-macos-arm64"
+    }
+
+    implementation "org.lwjgl:lwjgl:$lwjglVersion"
+    implementation "org.lwjgl:lwjgl-stb:$lwjglVersion"
+    allPlatformNative "org.lwjgl:lwjgl:$lwjglVersion"
+    allPlatformNative "org.lwjgl:lwjgl-stb:$lwjglVersion"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'EafConverter'
+    }
+}
