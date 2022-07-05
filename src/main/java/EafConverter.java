@@ -129,7 +129,7 @@ public class EafConverter {
             for (int y = 0; y < height; y++) {
                 // Pixel an dieser Position lesen
                 byte[] values = new byte[4];
-                pixels.position((x * width + y) * 4);
+                pixels.position((x + y * width) * 4);
                 pixels.get(values, 0, 4);
 
                 // Positionsangabe
